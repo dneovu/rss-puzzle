@@ -35,7 +35,17 @@
 .form-container {
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
   gap: 45px;
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  position: relative;
 }
 
 .login-input {
@@ -57,6 +67,17 @@
 }
 
 .login-label {
-  top: 30px;
-  @include font(1.2rem, 400, 1.5rem);
+  pointer-events: none;
+  padding-left: 5px;
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  color: rgb(133, 133, 133);
+  @extend %transition;
+  @include font(1rem, 400, 1.5rem);
+}
+
+.login-label_focus {
+  color: black;
+  bottom: 40px;
 }

@@ -11,6 +11,20 @@ const handleInvalidInput = (event: Event) => {
   }
 };
 
+const handleFocus = (event: Event) => {
+  const { target } = event;
+
+  if (target instanceof HTMLInputElement) {
+    const label = target.parentNode?.children.item(0);
+
+    if (event.type === 'focusin') {
+      label?.classList.add('login-label_focus');
+    } else if (event.type === 'focusout' && !target.value) {
+      label?.classList.remove('login-label_focus');
+    }
+  }
+};
+
 const createInputOrLabelElement = (
   elementToCreate: FormElement,
 ): HTMLInputElement | HTMLLabelElement => {
@@ -120,7 +134,8 @@ export class LoginPage extends Page {
       this.elements.firstNameInput,
     ) as HTMLInputElement;
     nameInput.addEventListener('input', handleInvalidInput);
-
+    nameInput.addEventListener('focusin', handleFocus);
+    nameInput.addEventListener('focusout', handleFocus);
     const surnameLabel = createInputOrLabelElement(
       this.elements.surnameLabel,
     ) as HTMLLabelElement;
@@ -129,6 +144,8 @@ export class LoginPage extends Page {
       this.elements.surnameInput,
     ) as HTMLInputElement;
     surnameInput.addEventListener('input', handleInvalidInput);
+    surnameInput.addEventListener('focusin', handleFocus);
+    surnameInput.addEventListener('focusout', handleFocus);
 
     nameContainer.append(nameLabel, nameInput);
     surnameContainer.append(surnameLabel, surnameInput);
