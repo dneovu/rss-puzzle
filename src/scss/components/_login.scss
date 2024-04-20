@@ -1,3 +1,11 @@
+.login-h1 {
+  @include font(2rem, 700, 1.5rem);
+}
+
+.login-h2 {
+  font-size: 1.5rem;
+}
+
 .login-body {
   background-color: azure;
 }
@@ -21,6 +29,7 @@
   justify-content: center;
   transform: translate(-50%, -50%);
   padding: 15px;
+  font-family: 'Nunito', sans-serif;
 }
 
 .form-container {
@@ -41,4 +50,13 @@
     outline: none;
     border-bottom: 2px solid rgb(0, 0, 0);
   }
+}
+
+.login-input_invalid:focus {
+  border-bottom: 2px solid rgb(182, 0, 0);
+}
+
+.login-label {
+  top: 30px;
+  @include font(1.2rem, 400, 1.5rem);
 }

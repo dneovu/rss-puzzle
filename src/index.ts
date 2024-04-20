@@ -2,4 +2,4 @@ import { LoginPage } from './pages/login';
 
 const loginPage = new LoginPage();
 
-loginPage.render();
+document.body.append(loginPage.render());
