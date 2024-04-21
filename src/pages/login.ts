@@ -33,12 +33,8 @@ const handleLoginButtonClick = (event: Event) => {
   event.preventDefault();
 };
 
-const createInputOrLabelElement = (
-  elementToCreate: FormElement,
-): HTMLInputElement | HTMLLabelElement => {
-  const element = document.createElement(elementToCreate.type) as
-    | HTMLInputElement
-    | HTMLLabelElement;
+const createElement = <T extends HTMLElement>(elementToCreate: FormElement): T => {
+  const element = document.createElement(elementToCreate.type) as T;
   element.id = elementToCreate.id;
   element.className = elementToCreate.className;
   if (elementToCreate.text) element.innerText = elementToCreate.text;
@@ -49,22 +45,6 @@ const createContainerElement = (className: string): HTMLDivElement => {
   const container = document.createElement('div');
   container.className = className;
   return container;
-};
-
-const createHeading = (elementToCreate: FormElement): HTMLHeadingElement => {
-  const header = document.createElement(elementToCreate.type) as HTMLHeadingElement;
-  header.id = elementToCreate.id;
-  header.className = elementToCreate.className;
-  if (elementToCreate.text) header.innerText = elementToCreate.text;
-  return header;
-};
-
-const createLoginButton = (elementToCreate: FormElement): HTMLButtonElement => {
-  const button = document.createElement(elementToCreate.type) as HTMLButtonElement;
-  button.id = elementToCreate.id;
-  button.className = elementToCreate.className;
-  if (elementToCreate.text) button.innerText = elementToCreate.text;
-  return button;
 };
 
 type FormElement = {
@@ -140,31 +120,23 @@ export class LoginPage extends Page {
       },
     };
 
-    this.h1 = createHeading(this.elements.header);
+    this.h1 = createElement<HTMLHeadingElement>(this.elements.header);
   }
 
   render() {
-    const h2 = createHeading(this.elements.loginHeading);
+    const h2 = createElement<HTMLHeadingElement>(this.elements.loginHeading);
 
     const nameContainer = createContainerElement('input-container');
     const surnameContainer = createContainerElement('input-container');
-    const nameLabel = createInputOrLabelElement(
-      this.elements.firstNameLabel,
-    ) as HTMLLabelElement;
 
-    const nameInput = createInputOrLabelElement(
-      this.elements.firstNameInput,
-    ) as HTMLInputElement;
+    const nameLabel = createElement<HTMLLabelElement>(this.elements.firstNameLabel);
+    const nameInput = createElement<HTMLInputElement>(this.elements.firstNameInput);
     nameInput.addEventListener('input', handleInvalidInput);
     nameInput.addEventListener('focusin', handleFocus);
     nameInput.addEventListener('focusout', handleFocus);
-    const surnameLabel = createInputOrLabelElement(
-      this.elements.surnameLabel,
-    ) as HTMLLabelElement;
 
-    const surnameInput = createInputOrLabelElement(
-      this.elements.surnameInput,
-    ) as HTMLInputElement;
+    const surnameLabel = createElement<HTMLLabelElement>(this.elements.surnameLabel);
+    const surnameInput = createElement<HTMLInputElement>(this.elements.surnameInput);
     surnameInput.addEventListener('input', handleInvalidInput);
     surnameInput.addEventListener('focusin', handleFocus);
     surnameInput.addEventListener('focusout', handleFocus);
@@ -172,7 +144,7 @@ export class LoginPage extends Page {
     nameContainer.append(nameLabel, nameInput);
     surnameContainer.append(surnameLabel, surnameInput);
 
-    const loginButton = createLoginButton(this.elements.loginButton) as HTMLButtonElement;
+    const loginButton = createElement<HTMLButtonElement>(this.elements.loginButton);
     loginButton.addEventListener('click', handleLoginButtonClick);
 
     this.form.append(h2, nameContainer, surnameContainer, loginButton);
