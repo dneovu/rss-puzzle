@@ -1,12 +1,16 @@
 import Page from '../templates/page';
 
 const handleInvalidInput = (event: Event) => {
+  const { target } = event;
   const regex = /^[A-Z][a-zA-Z-]{2,}(?<!-)$/;
-  if (event.target instanceof HTMLInputElement) {
-    if (!regex.test(event.target.value)) {
-      event.target.classList.add('login-input_invalid');
+
+  if (target instanceof HTMLInputElement) {
+    if (!regex.test(target.value)) {
+      target.classList.add('login-input_invalid');
+      target.classList.remove('login-input_valid');
     } else {
-      event.target.classList.remove('login-input_invalid');
+      target.classList.remove('login-input_invalid');
+      target.classList.add('login-input_valid');
     }
   }
 };
@@ -19,7 +23,7 @@ const handleFocus = (event: Event) => {
 
     if (event.type === 'focusin') {
       label?.classList.add('login-label_focus');
-    } else if (event.type === 'focusout' && !target.value) {
+    } else if (event.type === 'focusout' && target.value === '') {
       label?.classList.remove('login-label_focus');
     }
   }

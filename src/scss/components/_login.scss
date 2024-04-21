@@ -62,8 +62,20 @@
   }
 }
 
-.login-input_invalid:focus {
+.login-input_invalid {
   border-bottom: 2px solid rgb(182, 0, 0);
+
+  &:focus {
+    border-bottom: 2px solid rgb(182, 0, 0);
+  }
+}
+
+.login-input_valid {
+  border-bottom: 2px solid rgb(21, 182, 0);
+
+  &:focus {
+    border-bottom: 2px solid rgb(21, 182, 0);
+  }
 }
 
 .login-label {
