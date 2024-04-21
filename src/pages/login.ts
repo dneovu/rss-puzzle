@@ -1,16 +1,21 @@
 import Page from '../templates/page';
 
+const isInputValid = (input: HTMLInputElement) => {
+  const regex = /^[A-Z][a-zA-Z-]{2,}(?<!-)$/;
+  return regex.test(input?.value);
+};
+
 const handleInvalidInput = (event: Event) => {
   const { target } = event;
-  const regex = /^[A-Z][a-zA-Z-]{2,}(?<!-)$/;
 
   if (target instanceof HTMLInputElement) {
-    if (!regex.test(target.value)) {
-      target.classList.add('login-input_invalid');
-      target.classList.remove('login-input_valid');
-    } else {
+    const isValid = isInputValid(target as HTMLInputElement);
+    if (isValid) {
       target.classList.remove('login-input_invalid');
       target.classList.add('login-input_valid');
+    } else {
+      target.classList.add('login-input_invalid');
+      target.classList.remove('login-input_valid');
     }
   }
 };
@@ -31,6 +36,35 @@ const handleFocus = (event: Event) => {
 
 const handleLoginButtonClick = (event: Event) => {
   event.preventDefault();
+
+  const { target } = event;
+
+  if (target instanceof HTMLButtonElement) {
+    const firstNameInput = document.getElementById(
+      'login-name-input',
+    ) as HTMLInputElement;
+    const surnameInput = document.getElementById(
+      'login-surname-input',
+    ) as HTMLInputElement;
+    const isNameValid = isInputValid(firstNameInput);
+    const isSurnameValid = isInputValid(surnameInput);
+
+    if (isNameValid && isSurnameValid) {
+      localStorage.setItem(
+        'userFullName',
+        JSON.stringify({
+          firstName: firstNameInput.value,
+          surname: surnameInput.value,
+        }),
+      );
+    } else if (!isNameValid && !isSurnameValid) {
+      alert('Name and surname are invalid');
+    } else if (!isNameValid) {
+      alert('Name invalid');
+    } else if (!isSurnameValid) {
+      alert('Surname invalid');
+    }
+  }
 };
 
 const createElement = <T extends HTMLElement>(elementToCreate: FormElement): T => {
