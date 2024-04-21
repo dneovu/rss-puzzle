@@ -29,6 +29,10 @@ const handleFocus = (event: Event) => {
   }
 };
 
+const handleLoginButtonClick = (event: Event) => {
+  event.preventDefault();
+};
+
 const createInputOrLabelElement = (
   elementToCreate: FormElement,
 ): HTMLInputElement | HTMLLabelElement => {
@@ -53,6 +57,14 @@ const createHeading = (elementToCreate: FormElement): HTMLHeadingElement => {
   header.className = elementToCreate.className;
   if (elementToCreate.text) header.innerText = elementToCreate.text;
   return header;
+};
+
+const createLoginButton = (elementToCreate: FormElement): HTMLButtonElement => {
+  const button = document.createElement(elementToCreate.type) as HTMLButtonElement;
+  button.id = elementToCreate.id;
+  button.className = elementToCreate.className;
+  if (elementToCreate.text) button.innerText = elementToCreate.text;
+  return button;
 };
 
 type FormElement = {
@@ -120,6 +132,12 @@ export class LoginPage extends Page {
         type: 'input',
         className: 'login-input',
       },
+      loginButton: {
+        id: 'login-button',
+        type: 'button',
+        className: 'login-button',
+        text: 'Login',
+      },
     };
 
     this.h1 = createHeading(this.elements.header);
@@ -154,12 +172,14 @@ export class LoginPage extends Page {
     nameContainer.append(nameLabel, nameInput);
     surnameContainer.append(surnameLabel, surnameInput);
 
-    this.form.append(h2);
-    this.form.append(nameContainer, surnameContainer);
+    const loginButton = createLoginButton(this.elements.loginButton) as HTMLButtonElement;
+    loginButton.addEventListener('click', handleLoginButtonClick);
+
+    this.form.append(h2, nameContainer, surnameContainer, loginButton);
 
     this.container.append(this.form);
-    this.main.append(this.h1);
-    this.main.append(this.container);
+    this.main.append(this.h1, this.container);
+
     return this.main;
   }
 }
