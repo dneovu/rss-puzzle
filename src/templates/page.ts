@@ -1,9 +1,16 @@
 abstract class Page {
   abstract h1: HTMLHeadingElement;
 
-  abstract main: HTMLElement;
+  protected container: HTMLElement;
 
-  abstract render(): HTMLElement;
+  constructor(id: string) {
+    this.container = document.createElement('div');
+    this.container.id = id;
+  }
+
+  render() {
+    return this.container;
+  }
 }
 
 export default Page;

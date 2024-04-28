@@ -1,5 +1,3 @@
-import { LoginPage } from './pages/login';
+import App from './pages/app/app';
 
-const loginPage = new LoginPage();
-
-document.body.append(loginPage.render());
+App.run();
