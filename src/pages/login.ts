@@ -5,9 +5,7 @@ const isInputValid = (input: HTMLInputElement) => {
   return regex.test(input?.value);
 };
 
-const handleInvalidInput = (event: Event) => {
-  const { target } = event;
-
+const handleInvalidInput = (target: EventTarget) => {
   if (target instanceof HTMLInputElement) {
     const isValid = isInputValid(target as HTMLInputElement);
     if (isValid) {
@@ -20,10 +18,11 @@ const handleInvalidInput = (event: Event) => {
   }
 };
 
-const handleFocus = (event: Event) => {
+const handleInputAndFocus = (event: Event) => {
   const { target } = event;
 
   if (target instanceof HTMLInputElement) {
+    handleInvalidInput(target);
     const label = target.parentNode?.children.item(0);
 
     if (event.type === 'focusin') {
@@ -165,15 +164,9 @@ export class LoginPage extends Page {
 
     const nameLabel = createElement<HTMLLabelElement>(this.elements.firstNameLabel);
     const nameInput = createElement<HTMLInputElement>(this.elements.firstNameInput);
-    nameInput.addEventListener('input', handleInvalidInput);
-    nameInput.addEventListener('focusin', handleFocus);
-    nameInput.addEventListener('focusout', handleFocus);
 
     const surnameLabel = createElement<HTMLLabelElement>(this.elements.surnameLabel);
     const surnameInput = createElement<HTMLInputElement>(this.elements.surnameInput);
-    surnameInput.addEventListener('input', handleInvalidInput);
-    surnameInput.addEventListener('focusin', handleFocus);
-    surnameInput.addEventListener('focusout', handleFocus);
 
     nameContainer.append(nameLabel, nameInput);
     surnameContainer.append(surnameLabel, surnameInput);
@@ -182,6 +175,10 @@ export class LoginPage extends Page {
     loginButton.addEventListener('click', handleLoginButtonClick);
 
     this.form.append(h2, nameContainer, surnameContainer, loginButton);
+
+    this.form.addEventListener('input', handleInputAndFocus);
+    this.form.addEventListener('focusin', handleInputAndFocus);
+    this.form.addEventListener('focusout', handleInputAndFocus);
 
     this.container.append(this.form);
     this.main.append(this.h1, this.container);
