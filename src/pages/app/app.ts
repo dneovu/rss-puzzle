@@ -1,11 +1,7 @@
 import Page from '../../templates/page';
 import StartPage from '../start';
 import { LoginPage } from '../login';
-
-export const enum PageIds {
-  startPage = 'start',
-  loginPage = 'login',
-}
+import { PageIds } from '../../constants/constants';
 
 class App {
   private static container: HTMLElement = document.body;

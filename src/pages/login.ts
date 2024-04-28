@@ -1,3 +1,4 @@
+import { PageIds } from '../constants/constants';
 import Page from '../templates/page';
 
 type FormElement = {
@@ -167,7 +168,10 @@ export class LoginPage extends Page {
       ) as HTMLInputElement;
       const isNameValid = LoginPage.isInputValid(firstNameInput);
       const isSurnameValid = LoginPage.isInputValid(surnameInput);
+
       if (isNameValid && isSurnameValid) {
+        window.location.href = `#${PageIds.startPage}`;
+
         localStorage.setItem(
           'userFullName',
           JSON.stringify({
