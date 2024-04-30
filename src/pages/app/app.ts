@@ -1,5 +1,6 @@
 import Page from '../../templates/page';
 import StartPage from '../start';
+import ErrorPage from '../error';
 import { LoginPage } from '../login';
 import { PageIds } from '../../constants/constants';
 
@@ -16,6 +17,8 @@ class App {
       page = new LoginPage(pageId);
     } else if (pageId === PageIds.startPage) {
       page = new StartPage(pageId);
+    } else {
+      page = new ErrorPage(pageId, '404');
     }
 
     if (page) {
