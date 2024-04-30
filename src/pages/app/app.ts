@@ -39,7 +39,13 @@ class App {
   }
 
   static run() {
-    App.renderNewPage(PageIds.loginPage);
+    const hash = window.location.hash.slice(1);
+    if (hash) {
+      App.renderNewPage(hash);
+    } else {
+      App.renderNewPage(PageIds.loginPage);
+    }
+
     App.enableRouteChange();
   }
 }

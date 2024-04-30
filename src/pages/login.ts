@@ -6,10 +6,6 @@ import Page from '../templates/page';
 export class LoginPage extends Page {
   h1: HTMLHeadingElement;
 
-  private main: HTMLElement;
-
-  private form: HTMLFormElement;
-
   private static elements: Record<string, Element> = {
     header: {
       type: 'h1',
@@ -29,6 +25,7 @@ export class LoginPage extends Page {
     firstNameInput: {
       type: 'input',
       className: 'login-input',
+      id: 'login-name-input',
     },
     surnameLabel: {
       type: 'label',
@@ -38,6 +35,7 @@ export class LoginPage extends Page {
     surnameInput: {
       type: 'input',
       className: 'login-input',
+      id: 'login-surname-input',
     },
     loginButton: {
       type: 'button',
@@ -61,15 +59,14 @@ export class LoginPage extends Page {
   constructor(id: string) {
     super(id);
 
-    this.main = createElement(LoginPage.elements.main);
-    this.form = createElement(LoginPage.elements.form);
     this.h1 = createElement(LoginPage.elements.header);
   }
 
   render() {
-    const h2 = createElement<HTMLHeadingElement>(
-      LoginPage.elements.loginHeading,
-    );
+    const main = createElement(LoginPage.elements.main);
+    const form = createElement(LoginPage.elements.form);
+
+    const h2 = createElement<HTMLHeadingElement>(LoginPage.elements.loginHeading);
 
     const nameContainer = createElement(LoginPage.elements.nameContainer);
     const surnameContainer = createElement(LoginPage.elements.nameContainer);
@@ -86,14 +83,14 @@ export class LoginPage extends Page {
     const loginButton = createElement(LoginPage.elements.loginButton);
     loginButton.addEventListener('click', LoginPage.handleLoginButtonClick);
 
-    this.form.append(h2, nameContainer, surnameContainer, loginButton);
+    form.append(h2, nameContainer, surnameContainer, loginButton);
 
-    this.form.addEventListener('input', LoginPage.handleInputAndFocus);
-    this.form.addEventListener('focusin', LoginPage.handleInputAndFocus);
-    this.form.addEventListener('focusout', LoginPage.handleInputAndFocus);
+    form.addEventListener('input', LoginPage.handleInputAndFocus);
+    form.addEventListener('focusin', LoginPage.handleInputAndFocus);
+    form.addEventListener('focusout', LoginPage.handleInputAndFocus);
 
-    this.main.append(this.form);
-    this.container.append(this.h1, this.main);
+    main.append(form);
+    this.container.append(this.h1, main);
 
     return this.container;
   }
