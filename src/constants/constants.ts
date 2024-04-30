@@ -3,4 +3,6 @@ export const enum PageIds {
   loginPage = 'login',
 }
 
-export default PageIds;
+export const StorageKeys: Record<string, string> = {
+  userFullName: 'userFullName',
+};

@@ -1,0 +1,59 @@
+#start {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  gap: 20px;
+}
+
+.start-h1 {
+  @include font(3rem, 700, 1.5rem);
+  font-family: 'Archivo Black', sans-serif;
+  font-size: 60px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  margin-bottom: 20px;
+  position: relative;
+  animation: text 1.5s 1;
+
+}
+
+.start-fullname {
+  @include font(1.5rem, 400, 1.5rem);
+  animation: text 1.8s 1;
+  animation: opacity 1.3s 1;
+}
+
+.start-button {
+  @include button(200px, 40px);
+  animation: opacity 2.3s 1;
+
+}
+
+@keyframes text {
+  0% {
+    margin-bottom: -60px;
+  }
+
+  30% {
+    margin-bottom: -60px;
+  }
+}
+
+@keyframes opacity {
+  0% {
+    opacity: 0;
+  }
+
+  80% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
